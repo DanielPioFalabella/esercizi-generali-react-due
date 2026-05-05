@@ -1,0 +1,8 @@
+.btn-modal {
+    border: 1px solid rgb(0, 134, 80);
+    border-radius: 4px;
+    background-color: rgb(0, 221, 132);
+    padding: 6px 10px;
+    color: rgb(0, 134, 80);
+    display: block;
+}

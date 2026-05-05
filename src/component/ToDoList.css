@@ -1,0 +1,50 @@
+.completed {
+    color: rgb(172, 172, 172);
+}
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 6px 0;
+    
+    p {
+        margin: 0px;
+    }
+}
+
+.task-section {
+    background-color: rgb(234, 243, 255);
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+
+.btn-delete {
+    border: 1px solid rgb(134, 0, 0);
+    border-radius: 4px;
+    background-color: rgb(255, 108, 108);
+    padding: 4px 8px;
+    color: rgb(134, 0, 0);
+}
+
+.btn-add-task {
+    border: 1px solid rgb(0, 74, 134);
+    border-radius: 4px;
+    background-color: rgb(108, 172, 255);
+    padding: 4px 8px;
+    color: rgb(0, 74, 134);
+}
+
+input {
+    min-width: 300px;
+    margin-right: 10px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border: 1px solid rgb(0, 74, 134);
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(108, 172, 255, 0.5);
+}
