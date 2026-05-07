@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .btn-modal {
     border: 1px solid rgb(0, 134, 80);
     border-radius: 4px;
@@ -5,4 +11,43 @@
     padding: 6px 10px;
     color: rgb(0, 134, 80);
     display: block;
+}
+
+.btn-theme {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    border: 1px solid rgb(171, 128, 0);
+    border-radius: 4px;
+    background-color: rgb(254, 247, 178);
+    padding: 6px 10px;
+    color: rgb(171, 128, 0);
+    display: block;
+}
+
+.light {
+    background-color: white;
+    padding: 10px;
+    min-height: 100vh;
+
+    .modal {
+        color: black;
+        line-height: 2.5;
+    }
+}
+
+.dark {
+    background-color: rgb(52, 52, 52);
+    padding: 10px;
+    color: rgb(250, 250, 250);
+    min-height: 100vh;
+
+    .task-section {
+        background-color: rgb(65, 65, 65);
+    }
+
+    .modal {
+        color: black;
+        line-height: 2.5;
+    }
 }

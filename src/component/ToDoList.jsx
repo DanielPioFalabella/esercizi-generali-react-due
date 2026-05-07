@@ -1,4 +1,4 @@
-import { useState, useReducer, useCallback, useRef } from "react"
+import { useState, useReducer, useCallback, useRef, useEffect } from "react"
 import "./ToDoList.css"
 import DataTasks from "./DataTasks"
 import Modal from "./Modal"
@@ -34,12 +34,17 @@ const ToDoList = () => {
     }
 
     const [taskText, setTaskText] = useState("")
-    const initialTaskState = [{
+    const initialTaskState = JSON.parse(localStorage.getItem("tasks")) || [{
         id: Date.now(),
         text: "andare in palestra",
         completed: false
     }]
+
     const [tasks, dispatch] = useReducer(reducerTask, initialTaskState)
+
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks))
+    }, [tasks])
 
     const inputRef = useRef()
     const handleAddTask = useCallback(() => {
@@ -70,7 +75,10 @@ const ToDoList = () => {
                     onClick={() => dispatch({ type: "COMPLETE_TASK", payload: task.id })}>
                     {task.text}
                 </p>
-                <button className="btn-delete" onClick={() => {setTaskToDelete(task.id), setShowDeleteModal(true)}}>
+                <button className="btn-delete" onClick={() => {
+                    setTaskToDelete(task.id)
+                    setShowDeleteModal(true)
+                }}>
                         Elimina
                     </button>
                 </div>
@@ -79,7 +87,7 @@ const ToDoList = () => {
             {taskToDelete && (
                     <Modal 
                     title= "Conferma eliminazione"
-                    content= "sei sicuro di voler cancellare questa modale?"
+                    content= "sei sicuro di voler cancellare questa task?"
                     show= {showDeleteModal}
                     onClose= {() => setShowDeleteModal(false)}
                     onConfirm= {() => {
