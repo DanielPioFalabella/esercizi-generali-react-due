@@ -1,5 +1,8 @@
-import { useState, useReducer } from "react"
+import { useState, useReducer, useCallback, useRef } from "react"
 import "./ToDoList.css"
+import DataTasks from "./DataTasks"
+import Modal from "./Modal"
+import useMousePosition from "../hooks/useMousePosition"
 
 const ToDoList = () => {
     const reducerTask = (tasks, action) => {
@@ -38,16 +41,23 @@ const ToDoList = () => {
     }]
     const [tasks, dispatch] = useReducer(reducerTask, initialTaskState)
 
-    const handleAddTask = () => {
+    const inputRef = useRef()
+    const handleAddTask = useCallback(() => {
         dispatch({ type: "ADD_TASK", payload: taskText });
         setTaskText("")
-    }
+        inputRef.current.select()
+    }, [taskText])
 
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
+    const [taskToDelete, setTaskToDelete] = useState(null)
+
+    const {x, y} = useMousePosition()
 
     return (
         <>
             <input type="text"
                 placeholder="aggiungi qualcosa"
+                ref={inputRef}
                 value={taskText}
                 onChange={(e) => setTaskText(e.target.value)} />
             <button className="btn-add-task" onClick={handleAddTask}>Aggiungi</button>
@@ -60,9 +70,31 @@ const ToDoList = () => {
                     onClick={() => dispatch({ type: "COMPLETE_TASK", payload: task.id })}>
                     {task.text}
                 </p>
-                <button className="btn-delete" onClick={() => dispatch({type: "DELETE_TASK", payload: task.id})}>Elimina</button>
+                <button className="btn-delete" onClick={() => {setTaskToDelete(task.id), setShowDeleteModal(true)}}>
+                        Elimina
+                    </button>
                 </div>
             ))}
+            </div>
+            {taskToDelete && (
+                    <Modal 
+                    title= "Conferma eliminazione"
+                    content= "sei sicuro di voler cancellare questa modale?"
+                    show= {showDeleteModal}
+                    onClose= {() => setShowDeleteModal(false)}
+                    onConfirm= {() => {
+                        dispatch({
+                            type: "DELETE_TASK",
+                            payload: taskToDelete
+                        })
+                        setShowDeleteModal(false)
+                    }}/>
+                )}
+
+            {/* data tasks */}
+            <div className="data-section">
+                <DataTasks tasks={tasks}/>
+                <p>X: {x} Y: {y}</p>
             </div>
         </>
     )

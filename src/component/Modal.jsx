@@ -1,6 +1,6 @@
 import "./Modal.css"
 
-const Modal = ({title, content, onClose, show}) => {
+const Modal = ({title, content, onClose, onConfirm, show}) => {
     if (!show) return null;
 
     return (
@@ -8,7 +8,10 @@ const Modal = ({title, content, onClose, show}) => {
             <div className="modal">
                 <h4>{title}</h4>
                 <p>{content}</p>
-                <button className="btn-modal" onClick={onClose}>Chiudi</button>
+                <div className="btn-modal-section">
+                    <button className="btn-modal" onClick={onClose}>Chiudi</button>
+                    <button className="btn-modal" onClick={onConfirm}>Conferma</button>
+                </div>
             </div>
         </div>
     )
